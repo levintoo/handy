@@ -42,7 +42,14 @@ class HandyControllerController extends Controller
      */
     public function store(Request $request)
     {
-dd(request('name'));
+        $user = new HandyController();
+
+        $user->name = request('name');
+        $user->residence = request('residence');
+
+        $user->save();
+
+        return response()->json($user);
     }
 
     /**

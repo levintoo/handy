@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', [HandyControllerController::class,'index']);
-Route::get('/users', [HandyControllerController::class,'users']);
+Route::get('/users', [HandyControllerController::class,'index']);
 Route::get('/users/lv',UsersCOmponent::class);
 
 Route::get('/','App\Http\Controllers\HandyControllerController@index');
 
-Route::post('/store','App\Http\Livewire\UsersCOmponent@store')->name('store');
+Route::post('/store','App\Http\Livewire\UsersCOmponent@ajaxstore')->name('ajaxstore');

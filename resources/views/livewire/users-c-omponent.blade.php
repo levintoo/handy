@@ -1,7 +1,7 @@
 <div>
-<p>This is handy users input Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, iusto.</p>
+    <p>This is handy users input Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, iusto.</p>
     <div class="w-full max-w-xs ">
-        <form method="POST" action="{{route('store')}}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form method="POST" id="ajaxstoreform" action="{{route('ajaxstore')}}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
@@ -13,7 +13,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="">
                     Residence
                 </label>
-                <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name="residence" type="text" placeholder="nothome">
+                <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="residence" name="residence" type="text" placeholder="nothome">
                 <p class="text-red-500 text-xs italic">Please choose a password.</p>
             </div>
             <div class="flex items-center justify-between">
@@ -29,4 +29,26 @@
             &copy;2020 Acme Corp. All rights reserved.
         </p>
     </div>
+    <script>
+        $("#ajaxstore").submit(function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                }
+            });
+            console.log(formData);
+            $.ajax({
+                type: "POST",
+                url: "{{route('ajaxstore')}}",
+                data: {
+                    name: $("#username").val(),
+                    residence: $("#residence").val(),
+                },
+            }).done(function(data) {
+                console.log(data);
+            });
+
+        });
+    </script>
 </div>

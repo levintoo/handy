@@ -16,8 +16,21 @@ class UsersCOmponent extends Component
 
         $user->save();
 
-        return "Hello mf";
+        return redirect('/');
     }
+
+    public function ajaxstore(Request $request)
+    {
+        $user = new HandyController();
+
+        $user->name = request('name');
+        $user->residence = request('residence');
+
+        $user->save();
+
+        return redirect('/');
+    }
+
     public function users()
     {
         return view('users');
